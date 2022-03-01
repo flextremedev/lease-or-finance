@@ -1,7 +1,13 @@
 import * as React from 'react';
 
+import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
 import Head from 'next/head';
+
+import { theme } from '~/theme/theme';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -31,9 +37,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           sizes="32x32"
         />
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
-        <meta name="theme-color" content="#317EFB" />
+        <meta name="theme-color" content="#3A6CE9" />
       </Head>
-      <Component {...pageProps} />
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </>
   );
 }

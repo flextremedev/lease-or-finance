@@ -6,7 +6,7 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
-  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!**/_app.tsx'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!**/_app.tsx', '!**/test/**'],
   coverageThreshold: {
     global: {
       branches: 100,
