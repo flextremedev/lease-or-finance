@@ -1,0 +1,1 @@
+"@flextremedev/prettier-config"
