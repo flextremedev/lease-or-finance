@@ -7,6 +7,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
+import { ChoiceImage } from '../ChoiceImage';
 import { Layout } from '../Layout';
 
 export const Home = () => {
@@ -16,7 +17,7 @@ export const Home = () => {
   });
 
   return (
-    <Layout>
+    <Layout backgroundImage={<ChoiceImage />} direction="row-reverse">
       <Flex
         direction="column"
         alignItems="flex-start"
