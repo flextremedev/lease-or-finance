@@ -59,7 +59,16 @@ describe('Compare page', () => {
       expect(routerMock.push).toHaveBeenCalledTimes(2);
     });
     expect(routerMock.push).toHaveBeenLastCalledWith(
-      '/compare?step=fin&finCarPrice=1&finEndingRate=4&finInitialPayment=3&finMonthlyRate=2&finRuntime=6',
+      {
+        query: {
+          finCarPrice: '1',
+          finEndingRate: '4',
+          finInitialPayment: '3',
+          finMonthlyRate: '2',
+          finRuntime: '6',
+          step: 'fin',
+        },
+      },
       undefined,
       { shallow: true }
     );

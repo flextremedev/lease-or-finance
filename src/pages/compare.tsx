@@ -17,7 +17,16 @@ const Compare: NextPage = () => {
           finRuntime,
         }) => {
           router.push(
-            `/compare?step=fin&finCarPrice=${finCarPrice}&finEndingRate=${finEndingRate}&finInitialPayment=${finInitialPayment}&finMonthlyRate=${finMonthlyRate}&finRuntime=${finRuntime}`,
+            {
+              query: {
+                ...router.query,
+                finCarPrice,
+                finEndingRate,
+                finInitialPayment,
+                finMonthlyRate,
+                finRuntime,
+              },
+            },
             undefined,
             { shallow: true }
           );
