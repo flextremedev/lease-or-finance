@@ -4,14 +4,18 @@ import Compare from '~/pages/compare';
 import { renderPage } from '~/test/renderPage';
 
 describe('Compare page', () => {
-  it('should work', async () => {
+  it.each`
+    case           | key       | heading           | next      | prev
+    ${'financing'} | ${'fin'}  | ${'Finanzierung'} | ${'leas'} | ${'/'}
+    ${'leasing'}   | ${'leas'} | ${'Leasing'}      | ${'leas'} | ${{ query: { step: 'fin' } }}
+  `('should work for $case', async ({ key, heading, next, prev }) => {
     const { routerMock } = renderPage(<Compare />, {
       pathname: '/compare',
-      query: { step: 'fin' },
+      query: { step: key },
     });
     expect(
       screen.getByRole('heading', {
-        name: 'Finanzierung',
+        name: heading,
       })
     ).toBeInTheDocument();
 
@@ -52,7 +56,7 @@ describe('Compare page', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Zurück' }));
     expect(routerMock.push).toHaveBeenCalledTimes(1);
-    expect(routerMock.push).toHaveBeenLastCalledWith('/');
+    expect(routerMock.push).toHaveBeenLastCalledWith(prev);
 
     fireEvent.submit(screen.getByRole('button', { name: 'Weiter' }));
     await waitFor(() => {
@@ -61,12 +65,12 @@ describe('Compare page', () => {
     expect(routerMock.push).toHaveBeenLastCalledWith(
       {
         query: {
-          finCarPrice: '1',
-          finEndingRate: '4',
-          finInitialPayment: '3',
-          finMonthlyRate: '2',
-          finRuntime: '6',
-          step: 'fin',
+          [`${key}CarPrice`]: '1',
+          [`${key}EndingRate`]: '4',
+          [`${key}InitialPayment`]: '3',
+          [`${key}MonthlyRate`]: '2',
+          [`${key}Runtime`]: '6',
+          step: next,
         },
       },
       undefined,
