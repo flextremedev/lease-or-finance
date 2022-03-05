@@ -10,7 +10,11 @@ import {
 import { ChoiceImage } from '../ChoiceImage';
 import { Layout } from '../Layout';
 
-export const Home = () => {
+type HomeProps = {
+  onNext: () => void;
+};
+
+export const Home = ({ onNext }: HomeProps) => {
   const isButtonFullWidth = useBreakpointValue({
     base: true,
     xl: false,
@@ -52,11 +56,11 @@ export const Home = () => {
           width={{ base: 'auto', sm: '100%' }}
         >
           <Button
-            bg="brand.500"
-            color="white"
+            colorScheme="brand"
             size="lg"
             isFullWidth={isButtonFullWidth}
             marginTop={{ base: 0, sm: 8 }}
+            onClick={() => onNext()}
           >
             Jetzt vergleichen
           </Button>
