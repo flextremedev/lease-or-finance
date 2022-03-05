@@ -54,6 +54,7 @@ Object {
       "900": "#1A365D",
     },
     "brand": Object {
+      "100": "#EDF2F7",
       "500": "#3A6CE9",
     },
     "current": "currentColor",

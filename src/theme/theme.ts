@@ -4,6 +4,7 @@ const themeExtension: ThemeOverride = {
   colors: {
     brand: {
       500: '#3A6CE9',
+      100: '#EDF2F7',
     },
     white: '#F8FAFC',
     black: '#002175',
