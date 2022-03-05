@@ -20,7 +20,7 @@ export const Layout: React.FC<LayoutProps> = ({
         minHeight={{ base: '55%', xl: '100%' }}
         maxHeight={{ base: '55%', xl: '100%' }}
         background="gray.200"
-        width={{ base: '100%', xl: '38.5%' }}
+        width={{ base: '100%', xl: '45%' }}
       >
         <Container
           display="flex"
@@ -31,10 +31,9 @@ export const Layout: React.FC<LayoutProps> = ({
         </Container>
       </Flex>
       <Container
-        paddingY={[8]}
-        bg=""
+        paddingY={{ base: 8, md: 24 }}
         minHeight={{ base: '45%', xl: '100%' }}
-        width={{ base: '100%', xl: '61.5%' }}
+        width={{ base: '100%', xl: '55%' }}
         display="flex"
         flexDirection="column"
       >
