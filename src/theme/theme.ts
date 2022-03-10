@@ -7,7 +7,7 @@ const themeExtension: ThemeOverride = {
       100: '#EDF2F7',
     },
     white: '#F8FAFC',
-    black: '#002175',
+    black: '#132962',
     gray: {
       100: '#F8FAFC',
       200: '#E6ECFA',
