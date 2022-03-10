@@ -43,7 +43,7 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
     leasInitialPayment,
     leasMonthlyRate,
     leasRuntime,
-  } = query as Record<string, string | undefined>;
+  } = query as Record<string, string>;
 
   const finResidualValue = calculateValueAfterMonths(
     Number(finCarPrice),
@@ -71,11 +71,12 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
   const leasCostsEffective = (leasTotalPrice / Number(leasRuntime)).toFixed();
 
   const results = [
-    { label: 'Gesamtpreis', leas: '-', fin: finCarPrice },
+    { label: 'Gesamtpreis', leas: '-', fin: finCarPrice, isComparable: false },
     {
       label: 'Restwert nach Laufzeit',
       leas: '-',
       fin: finResidualValue,
+      isComparable: false,
     },
     {
       label: 'Kosten für Laufzeit',
@@ -113,7 +114,7 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
         <b>{Number(loserCostsEffective) - Number(winnerCostsEffective)}</b>€
         günstiger als bei der Variante <b>{loserLabel}</b>.
       </Box>
-      <Flex justify="space-between" mb={8}>
+      <Flex justify="space-between" mb={4}>
         <Heading as="h2" size="md">
           Finanzierung
         </Heading>
@@ -121,24 +122,23 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
           Leasing
         </Heading>
       </Flex>
-      {results.map(({ fin, label, leas }) => {
+      {results.map(({ fin, label, leas, isComparable }) => {
         return (
           <Box
             key={label}
             borderBottom="1px solid"
             borderBottomColor="gray.200"
-            mb={8}
           >
-            <Flex justify="center">
-              <Flex>
-                <Heading as="h3" size="xs">
-                  {label}
-                </Heading>
-              </Flex>
-            </Flex>
-            <Flex h="10" alignItems="center">
+            <Flex h="16" alignItems="center">
               <Flex
                 flex={1}
+                color={
+                  isComparable === false
+                    ? 'black'
+                    : winner === 'fin'
+                    ? 'green.700'
+                    : 'red.500'
+                }
                 data-testid={`${label
                   .toLowerCase()
                   .replaceAll(' ', '-')
@@ -146,8 +146,20 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
               >
                 {fin}
               </Flex>
+              <Flex>
+                <Heading as="h3" size="xs">
+                  {label}
+                </Heading>
+              </Flex>
               <Flex
                 flex={1}
+                color={
+                  isComparable === false
+                    ? 'black'
+                    : winner === 'leas'
+                    ? 'green.700'
+                    : 'red.500'
+                }
                 data-testid={`${label
                   .toLowerCase()
                   .replaceAll(' ', '-')

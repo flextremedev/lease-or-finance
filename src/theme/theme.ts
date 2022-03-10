@@ -12,6 +12,12 @@ const themeExtension: ThemeOverride = {
       100: '#F8FAFC',
       200: '#E6ECFA',
     },
+    red: {
+      500: '#E84855',
+    },
+    green: {
+      700: '#1A936F',
+    },
   },
   fonts: {
     heading: 'Inter',

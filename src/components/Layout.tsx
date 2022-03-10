@@ -31,8 +31,7 @@ export const Layout: React.FC<LayoutProps> = ({
         </Container>
       </Flex>
       <Container
-        paddingY={{ base: 8, md: 16 }}
-        pb={8}
+        paddingY={{ base: 8, md: 24 }}
         minHeight={{ base: '45%', xl: '100%' }}
         width={{ base: '100%', xl: '55%' }}
         display="flex"
