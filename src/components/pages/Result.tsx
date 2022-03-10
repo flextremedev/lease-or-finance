@@ -64,6 +64,12 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
     Number(finEndingRate)
   );
 
+  const finCostsEffective = (
+    (finTotalPrice - finResidualValue) /
+    Number(finRuntime)
+  ).toFixed();
+  const leasCostsEffective = (leasTotalPrice / Number(leasRuntime)).toFixed();
+
   const results = [
     { label: 'Gesamtpreis', leas: '-', fin: finCarPrice },
     {
@@ -71,13 +77,28 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
       leas: '-',
       fin: finResidualValue,
     },
-    { label: 'Kosten für Laufzeit', leas: leasTotalPrice, fin: finTotalPrice },
+    {
+      label: 'Kosten für Laufzeit',
+      leas: leasTotalPrice,
+      fin: finTotalPrice - finResidualValue,
+    },
     {
       label: 'Eff. Kosten pro Monat',
-      leas: (leasTotalPrice / Number(leasRuntime)).toFixed(),
-      fin: ((finTotalPrice - finResidualValue) / Number(finRuntime)).toFixed(),
+      leas: leasCostsEffective,
+      fin: finCostsEffective,
     },
   ];
+  const winner =
+    Number(finCostsEffective) < Number(leasCostsEffective) ? 'fin' : 'leas';
+  const winnerMonthlyRate = winner === 'fin' ? finMonthlyRate : leasMonthlyRate;
+  const winnerRuntime = winner === 'fin' ? finRuntime : leasRuntime;
+  const winnerLabel = { fin: 'Finanzierung', leas: 'Leasing' }[winner];
+  const loser = { leas: 'fin', fin: 'leas' }[winner];
+  const loserLabel = { fin: 'Finanzierung', leas: 'Leasing' }[loser];
+  const winnerCostsEffective =
+    winner === 'fin' ? finCostsEffective : leasCostsEffective;
+  const loserCostsEffective =
+    winner !== 'fin' ? finCostsEffective : leasCostsEffective;
 
   return (
     <Layout backgroundImage={<ResultImage />}>
@@ -86,9 +107,11 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
         Ergebnis
       </Heading>
       <Box borderRadius="md" bgColor="brand.500" color="white" p={6} mb={8}>
-        Mit <b>{'300€'}</b> pro Monat über eine Laufzeit von <b>{'36'}</b>{' '}
-        Monaten sind die effektiven Kosten bei der Variante <b>Finanzierung</b>{' '}
-        <b>{'100'}</b>€ günstiger als beim Leasing.
+        Mit <b>{winnerMonthlyRate}€</b> pro Monat über eine Laufzeit von{' '}
+        <b>{winnerRuntime}</b> Monaten sind die effektiven monatlichen Kosten
+        bei der Variante <b>{winnerLabel}</b>{' '}
+        <b>{Number(loserCostsEffective) - Number(winnerCostsEffective)}</b>€
+        günstiger als bei der Variante <b>{loserLabel}</b>.
       </Box>
       <Flex justify="space-between" mb={8}>
         <Heading as="h2" size="md">
