@@ -174,7 +174,12 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
       })}
       <HStack spacing={4} justify="end" alignSelf="stretch" mt={8}>
         <Button onClick={onBack}>Zurück</Button>
-        <Button variant="solid" colorScheme="brand" onClick={onRestart}>
+        <Button
+          variant="solid"
+          bgColor="brand.500"
+          color="white"
+          onClick={onRestart}
+        >
           Neu starten
         </Button>
       </HStack>

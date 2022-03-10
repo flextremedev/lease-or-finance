@@ -165,7 +165,12 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
           <Button onClick={onBack}>Zurück</Button>
-          <Button variant="solid" colorScheme="brand" type="submit">
+          <Button
+            variant="solid"
+            type="submit"
+            bgColor="brand.500"
+            color="white"
+          >
             Weiter
           </Button>
         </HStack>

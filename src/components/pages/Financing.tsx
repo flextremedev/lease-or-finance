@@ -164,7 +164,12 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
           <Button onClick={onBack}>Zurück</Button>
-          <Button variant="solid" colorScheme="brand" type="submit">
+          <Button
+            variant="solid"
+            bgColor="brand.500"
+            color="white"
+            type="submit"
+          >
             Weiter
           </Button>
         </HStack>
