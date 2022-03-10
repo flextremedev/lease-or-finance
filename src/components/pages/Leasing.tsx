@@ -90,6 +90,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasCarPrice', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -112,8 +114,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
               {leasRuntime} Monate
             </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
+            <SliderTrack bgColor="gray.200">
+              <SliderFilledTrack bgColor="brand.500" />
             </SliderTrack>
             <SliderThumb />
           </Slider>
@@ -127,6 +129,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasMonthlyRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -142,6 +146,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasInitialPayment', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -157,6 +163,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasEndingRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>

@@ -89,6 +89,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finCarPrice', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -111,8 +113,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
               {finRuntime} Monate
             </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
+            <SliderTrack bgColor="gray.200">
+              <SliderFilledTrack bgColor="brand.500" />
             </SliderTrack>
             <SliderThumb />
           </Slider>
@@ -126,6 +128,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finMonthlyRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -141,6 +145,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finInitialPayment', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -156,6 +162,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finEndingRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
