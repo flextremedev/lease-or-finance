@@ -82,16 +82,38 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
   return (
     <Layout backgroundImage={<ResultImage />}>
       <Stepper activeStep={3} />
-      <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.5em">
+      <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.75em">
         Ergebnis
       </Heading>
+      <Box borderRadius="md" bgColor="brand.500" color="white" p={6} mb={8}>
+        Mit <b>{'300€'}</b> pro Monat über eine Laufzeit von <b>{'36'}</b>{' '}
+        Monaten sind die effektiven Kosten bei der Variante <b>Finanzierung</b>{' '}
+        <b>{'100'}</b>€ günstiger als beim Leasing.
+      </Box>
+      <Flex justify="space-between" mb={8}>
+        <Heading as="h2" size="md">
+          Finanzierung
+        </Heading>
+        <Heading as="h2" size="md">
+          Leasing
+        </Heading>
+      </Flex>
       {results.map(({ fin, label, leas }) => {
         return (
-          <Box key={label}>
+          <Box
+            key={label}
+            borderBottom="1px solid"
+            borderBottomColor="gray.200"
+            mb={8}
+          >
             <Flex justify="center">
-              <Flex>{label}</Flex>
+              <Flex>
+                <Heading as="h3" size="xs">
+                  {label}
+                </Heading>
+              </Flex>
             </Flex>
-            <Flex h="12" alignItems="center">
+            <Flex h="10" alignItems="center">
               <Flex
                 flex={1}
                 data-testid={`${label
