@@ -39,15 +39,7 @@ type FormData = {
 const NOT_EMPTY_ERROR = 'Bitte tragen Sie einen Wert ein';
 
 export const Financing = ({ onBack, onNext }: FinancingProps) => {
-  const [finRuntime, setFinRuntime] = React.useState(6);
   const { query } = useRouter();
-
-  /* istanbul ignore next */
-  const handleFinRuntime = (value: number) => {
-    setFinRuntime(value);
-    setValue('finRuntime', String(value));
-  };
-
   const {
     finCarPrice: finCarPriceFromQuery,
     finEndingRate: finEndingRateFromQuery,
@@ -55,11 +47,18 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
     finMonthlyRate: finMonthlyRateFromQuery,
     finRuntime: finRuntimeFromQuery,
   } = query as Record<string, string | undefined>;
+  const [finRuntime, setFinRuntime] = React.useState(
+    finRuntimeFromQuery || '6'
+  );
+
+  /* istanbul ignore next */
+  const handleFinRuntime = (value: number) => {
+    setFinRuntime(String(value));
+  };
 
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -67,11 +66,12 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
       finEndingRate: finEndingRateFromQuery,
       finInitialPayment: finInitialPaymentFromQuery,
       finMonthlyRate: finMonthlyRateFromQuery,
-      finRuntime: finRuntimeFromQuery,
     },
   });
 
-  const submit = handleSubmit(onNext);
+  const submit = handleSubmit((formData) =>
+    onNext({ ...formData, finRuntime })
+  );
 
   return (
     <Layout backgroundImage={<BlueCarImage />}>
@@ -89,6 +89,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finCarPrice', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -101,19 +103,18 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
           </FormLabel>
           <Slider
             colorScheme="brand"
-            {...register('finRuntime')}
             min={6}
+            value={Number(finRuntime)}
             max={60}
             step={6}
-            value={finRuntime}
             aria-labelledby="finRuntimeLabel"
             onChange={handleFinRuntime}
           >
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
               {finRuntime} Monate
             </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
+            <SliderTrack bgColor="gray.200">
+              <SliderFilledTrack bgColor="brand.500" />
             </SliderTrack>
             <SliderThumb />
           </Slider>
@@ -127,6 +128,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finMonthlyRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -142,6 +145,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finInitialPayment', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -157,6 +162,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
               {...register('finEndingRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -165,7 +172,12 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
           <Button onClick={onBack}>Zurück</Button>
-          <Button variant="solid" colorScheme="brand" type="submit">
+          <Button
+            variant="solid"
+            bgColor="brand.500"
+            color="white"
+            type="submit"
+          >
             Weiter
           </Button>
         </HStack>

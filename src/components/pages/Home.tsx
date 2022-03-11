@@ -56,7 +56,8 @@ export const Home = ({ onNext }: HomeProps) => {
           width={{ base: 'auto', sm: '100%' }}
         >
           <Button
-            colorScheme="brand"
+            bgColor="brand.500"
+            color="white"
             size="lg"
             isFullWidth={isButtonFullWidth}
             marginTop={{ base: 0, sm: 8 }}

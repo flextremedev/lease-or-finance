@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import { Financing } from '~/components/pages/Financing';
 import { Leasing } from '~/components/pages/Leasing';
+import { Result } from '~/components/pages/Result';
 
 const Compare: NextPage = () => {
   const router = useRouter();
@@ -55,6 +56,7 @@ const Compare: NextPage = () => {
                 leasInitialPayment,
                 leasMonthlyRate,
                 leasRuntime,
+                step: 'result',
               },
             },
             undefined,
@@ -62,6 +64,13 @@ const Compare: NextPage = () => {
           );
         }}
         onBack={() => router.push({ query: { ...router.query, step: 'fin' } })}
+      />
+    );
+  } else if (router.query.step === 'result') {
+    return (
+      <Result
+        onRestart={() => router.push({ query: { step: 'fin' } })}
+        onBack={() => router.push({ query: { ...router.query, step: 'leas' } })}
       />
     );
   }

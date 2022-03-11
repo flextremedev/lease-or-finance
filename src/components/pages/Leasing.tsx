@@ -30,24 +30,16 @@ type LeasingProps = {
 
 type FormData = {
   leasCarPrice: string;
-  leasRuntime: string;
   leasMonthlyRate: string;
   leasInitialPayment: string;
   leasEndingRate: string;
+  leasRuntime: string;
 };
 
 const NOT_EMPTY_ERROR = 'Bitte tragen Sie einen Wert ein';
 
 export const Leasing = ({ onBack, onNext }: LeasingProps) => {
-  const [leasRuntime, setLeasRuntime] = React.useState(6);
   const { query } = useRouter();
-
-  /* istanbul ignore next */
-  const handleLeasRuntime = (value: number) => {
-    setLeasRuntime(value);
-    setValue('leasRuntime', String(value));
-  };
-
   const {
     leasCarPrice: leasCarPriceFromQuery,
     leasEndingRate: leasEndingRateFromQuery,
@@ -56,10 +48,18 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
     leasRuntime: leasRuntimeFromQuery,
   } = query as Record<string, string | undefined>;
 
+  const [leasRuntime, setLeasRuntime] = React.useState<string>(
+    leasRuntimeFromQuery || '6'
+  );
+
+  /* istanbul ignore next */
+  const handleLeasRuntime = (value: number) => {
+    setLeasRuntime(String(value));
+  };
+
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -67,11 +67,12 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
       leasEndingRate: leasEndingRateFromQuery,
       leasInitialPayment: leasInitialPaymentFromQuery,
       leasMonthlyRate: leasMonthlyRateFromQuery,
-      leasRuntime: leasRuntimeFromQuery,
     },
   });
 
-  const submit = handleSubmit(onNext);
+  const submit = handleSubmit((formData) =>
+    onNext({ ...formData, leasRuntime })
+  );
 
   return (
     <Layout backgroundImage={<RedCarImage />}>
@@ -89,6 +90,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasCarPrice', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -101,19 +104,18 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
           </FormLabel>
           <Slider
             colorScheme="brand"
-            {...register('leasRuntime')}
+            value={Number(leasRuntime)}
             min={6}
             max={60}
             step={6}
-            value={leasRuntime}
             aria-labelledby="leasRuntimeLabel"
             onChange={handleLeasRuntime}
           >
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
               {leasRuntime} Monate
             </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
+            <SliderTrack bgColor="gray.200">
+              <SliderFilledTrack bgColor="brand.500" />
             </SliderTrack>
             <SliderThumb />
           </Slider>
@@ -127,6 +129,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasMonthlyRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -142,6 +146,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasInitialPayment', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -157,6 +163,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {...register('leasEndingRate', {
                 required: NOT_EMPTY_ERROR,
               })}
+              border="1px solid"
+              borderColor="gray.200"
             />
           </NumberInput>
           <FormErrorMessage>
@@ -165,7 +173,12 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
           <Button onClick={onBack}>Zurück</Button>
-          <Button variant="solid" colorScheme="brand" type="submit">
+          <Button
+            variant="solid"
+            type="submit"
+            bgColor="brand.500"
+            color="white"
+          >
             Weiter
           </Button>
         </HStack>
