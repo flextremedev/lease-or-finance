@@ -19,9 +19,9 @@ import {
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
-import { Layout } from '../Layout';
-import { RedCarImage } from '../RedCarImage';
-import { Stepper } from '../Stepper';
+import { Layout } from '~/components/Layout';
+import { RedCarImage } from '~/components/RedCarImage';
+import { Stepper } from '~/components/Stepper';
 
 type LeasingProps = {
   onNext: (leasData: FormData) => void;
@@ -114,8 +114,8 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
               {leasRuntime} Monate
             </SliderMark>
-            <SliderTrack bgColor="gray.200">
-              <SliderFilledTrack bgColor="brand.500" />
+            <SliderTrack>
+              <SliderFilledTrack />
             </SliderTrack>
             <SliderThumb />
           </Slider>
@@ -172,13 +172,10 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
           </FormErrorMessage>
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
-          <Button onClick={onBack}>Zurück</Button>
-          <Button
-            variant="solid"
-            type="submit"
-            bgColor="brand.500"
-            color="white"
-          >
+          <Button variant="ghost" colorScheme="brand" onClick={onBack}>
+            Zurück
+          </Button>
+          <Button variant="solid" colorScheme="brand" type="submit">
             Weiter
           </Button>
         </HStack>

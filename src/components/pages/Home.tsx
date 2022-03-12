@@ -7,8 +7,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { ChoiceImage } from '../ChoiceImage';
-import { Layout } from '../Layout';
+import { ChoiceImage } from '~/components/ChoiceImage';
+import { Layout } from '~/components/Layout';
 
 type HomeProps = {
   onNext: () => void;
@@ -56,11 +56,11 @@ export const Home = ({ onNext }: HomeProps) => {
           width={{ base: 'auto', sm: '100%' }}
         >
           <Button
-            bgColor="brand.500"
-            color="white"
             size="lg"
             isFullWidth={isButtonFullWidth}
             marginTop={{ base: 0, sm: 8 }}
+            variant="solid"
+            colorScheme="brand"
             onClick={() => onNext()}
           >
             Jetzt vergleichen
