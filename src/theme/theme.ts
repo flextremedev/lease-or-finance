@@ -1,13 +1,35 @@
-import { extendTheme, ThemeOverride } from '@chakra-ui/react';
+import {
+  ComponentStyleConfig,
+  extendTheme,
+  ThemeOverride,
+} from '@chakra-ui/react';
+
+const NumberInput: ComponentStyleConfig = {
+  defaultProps: {
+    focusBorderColor: 'brand.300',
+  },
+};
+
+const shadows = {
+  outline: '0 0 0 3px #8ca9f2',
+};
 
 const themeExtension: ThemeOverride = {
   colors: {
     brand: {
-      500: '#3A6CE9',
-      100: '#EDF2F7',
+      900: '#051257',
+      800: '#0A207A',
+      700: '#10339D',
+      600: '#133EAE',
+      500: '#3E6EE9',
+      400: '#638DEE',
+      300: '#88AAF2',
+      200: '#BFD2F8',
+      100: '#D1DFFA',
+      50: '#E3ECFC',
     },
     white: '#F8FAFC',
-    black: '#132962',
+    black: '#051257',
     gray: {
       100: '#F8FAFC',
       200: '#E6ECFA',
@@ -39,6 +61,8 @@ const themeExtension: ThemeOverride = {
       },
     },
   },
+  components: { NumberInput },
+  shadows,
 };
 
 export const theme = extendTheme(themeExtension);

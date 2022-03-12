@@ -19,9 +19,9 @@ import {
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
-import { BlueCarImage } from '../BlueCarImage';
-import { Layout } from '../Layout';
-import { Stepper } from '../Stepper';
+import { BlueCarImage } from '~/components/BlueCarImage';
+import { Layout } from '~/components/Layout';
+import { Stepper } from '~/components/Stepper';
 
 type FinancingProps = {
   onNext: (finData: FormData) => void;
@@ -76,7 +76,13 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
   return (
     <Layout backgroundImage={<BlueCarImage />}>
       <Stepper activeStep={1} />
-      <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.5em">
+      <Heading
+        as="h1"
+        size="2xl"
+        mt={{ base: 0, md: '1em' }}
+        mb="1em"
+        fontWeight="black"
+      >
         Finanzierung
       </Heading>
       <VStack as="form" spacing={8} onSubmit={submit}>
@@ -113,8 +119,8 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
               {finRuntime} Monate
             </SliderMark>
-            <SliderTrack bgColor="gray.200">
-              <SliderFilledTrack bgColor="brand.500" />
+            <SliderTrack>
+              <SliderFilledTrack />
             </SliderTrack>
             <SliderThumb />
           </Slider>
@@ -171,13 +177,10 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
           </FormErrorMessage>
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
-          <Button onClick={onBack}>Zurück</Button>
-          <Button
-            variant="solid"
-            bgColor="brand.500"
-            color="white"
-            type="submit"
-          >
+          <Button onClick={onBack} variant="ghost" colorScheme="brand">
+            Zurück
+          </Button>
+          <Button type="submit" colorScheme="brand">
             Weiter
           </Button>
         </HStack>

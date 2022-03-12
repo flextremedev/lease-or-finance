@@ -3,9 +3,9 @@ import * as React from 'react';
 import { Box, Button, Flex, Heading, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import { Layout } from '../Layout';
-import { ResultImage } from '../ResultImage';
-import { Stepper } from '../Stepper';
+import { Layout } from '~/components/Layout';
+import { ResultImage } from '~/components/ResultImage';
+import { Stepper } from '~/components/Stepper';
 
 const calculateTotalPrice = (
   monthlyRate: number,
@@ -104,7 +104,13 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
   return (
     <Layout backgroundImage={<ResultImage />}>
       <Stepper activeStep={3} />
-      <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.75em">
+      <Heading
+        as="h1"
+        size="2xl"
+        mt={{ base: 0, md: '1em' }}
+        mb="1em"
+        fontWeight="black"
+      >
         Ergebnis
       </Heading>
       <Box borderRadius="md" bgColor="brand.500" color="white" p={6} mb={8}>
@@ -173,13 +179,10 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
         );
       })}
       <HStack spacing={4} justify="end" alignSelf="stretch" mt={8}>
-        <Button onClick={onBack}>Zurück</Button>
-        <Button
-          variant="solid"
-          bgColor="brand.500"
-          color="white"
-          onClick={onRestart}
-        >
+        <Button variant="ghost" colorScheme="brand" onClick={onBack}>
+          Zurück
+        </Button>
+        <Button variant="outline" colorScheme="brand" onClick={onRestart}>
           Neu starten
         </Button>
       </HStack>

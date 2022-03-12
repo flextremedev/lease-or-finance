@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
+import '@fontsource/inter/900.css';
 import Head from 'next/head';
 
 import { theme } from '~/theme/theme';
@@ -21,7 +22,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
-        <title>Next.js PWA Example</title>
+        <title>Finance or lease</title>
 
         <link rel="manifest" href="/manifest.json" />
         <link
