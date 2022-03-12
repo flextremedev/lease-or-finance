@@ -77,7 +77,13 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
   return (
     <Layout backgroundImage={<RedCarImage />}>
       <Stepper activeStep={2} />
-      <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.5em">
+      <Heading
+        as="h1"
+        size="2xl"
+        mt={{ base: 0, md: '1em' }}
+        mb="1em"
+        fontWeight="black"
+      >
         Leasing
       </Heading>
       <VStack as="form" spacing={8} onSubmit={submit}>

@@ -76,7 +76,13 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
   return (
     <Layout backgroundImage={<BlueCarImage />}>
       <Stepper activeStep={1} />
-      <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.5em">
+      <Heading
+        as="h1"
+        size="2xl"
+        mt={{ base: 0, md: '1em' }}
+        mb="1em"
+        fontWeight="black"
+      >
         Finanzierung
       </Heading>
       <VStack as="form" spacing={8} onSubmit={submit}>

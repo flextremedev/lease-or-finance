@@ -30,13 +30,14 @@ export const Home = ({ onNext }: HomeProps) => {
         position="relative"
       >
         <VStack
-          spacing={{ base: 4, md: 6 }}
+          spacing={{ base: 4 }}
           alignItems="flex-start"
           mb={{ base: 16, sm: 0 }}
         >
           <Heading
             as="h1"
             size="xl"
+            fontWeight="900"
             fontSize={{ base: '3xl', md: '4xl', xl: '5xl' }}
             textAlign="left"
           >

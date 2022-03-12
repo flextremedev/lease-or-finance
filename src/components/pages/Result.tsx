@@ -104,7 +104,13 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
   return (
     <Layout backgroundImage={<ResultImage />}>
       <Stepper activeStep={3} />
-      <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.75em">
+      <Heading
+        as="h1"
+        size="2xl"
+        mt={{ base: 0, md: '1em' }}
+        mb="1em"
+        fontWeight="black"
+      >
         Ergebnis
       </Heading>
       <Box borderRadius="md" bgColor="brand.500" color="white" p={6} mb={8}>
