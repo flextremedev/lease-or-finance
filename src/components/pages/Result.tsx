@@ -107,7 +107,7 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
       <Heading as="h1" size="2xl" mt={{ base: 0, md: '1em' }} mb="0.75em">
         Ergebnis
       </Heading>
-      <Box borderRadius="md" bgColor="brand.400" color="white" p={6} mb={8}>
+      <Box borderRadius="md" bgColor="brand.500" color="white" p={6} mb={8}>
         Mit <b>{winnerMonthlyRate}€</b> pro Monat über eine Laufzeit von{' '}
         <b>{winnerRuntime}</b> Monaten sind die effektiven monatlichen Kosten
         bei der Variante <b>{winnerLabel}</b>{' '}
