@@ -34,5 +34,15 @@
     "monthlyRate": "Monatliche Rate",
     "initialPayment": "Anzahlung",
     "endingRate": "Schlussrate"
+  },
+  "Result": {
+    "pageTitle": "Finanzierung oder Leasing | Ergebnis",
+    "title": "Ergebnis",
+    "summary": "Mit <strong>{winnerMonthlyRate}€</strong> pro Monat über eine Laufzeit von <strong>{winnerRuntime}</strong> Monaten sind die effektiven monatlichen Kosten bei der Variante <strong>{winnerLabel}</strong> <strong>{difference}</strong>€ günstiger als bei der Variante <strong>{loserLabel}</strong>.",
+    "totalPayment": "Gesamtpreis",
+    "residualValueAfterTerm": "Restwert nach Laufzeit",
+    "costsForTerm": "Kosten für Laufzeit",
+    "monthlyCosts": "Eff. Kosten pro Monat",
+    "restart": "Neu starten"
   }
 }

@@ -34,5 +34,15 @@
     "monthlyRate": "Monthly payment",
     "initialPayment": "Initial payment",
     "endingRate": "Ending rate"
+  },
+  "Result": {
+    "pageTitle": "Finance or lease | Result",
+    "title": "Result",
+    "summary": "At <strong>€{winnerMonthlyRate}</strong> per month over a term of <strong>{winnerRuntime} months</strong>, the effective monthly costs are <strong>€{difference}</strong> cheaper with the <strong>{winnerLabel}</strong> variant than with the <strong>{loserLabel}</strong> variant.",
+    "totalPayment": "Total payment",
+    "residualValueAfterTerm": "Residual value after term",
+    "costsForTerm": "Costs for term",
+    "monthlyCosts": "Monthly costs effective",
+    "restart": "Restart"
   }
 }

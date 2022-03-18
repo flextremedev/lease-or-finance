@@ -99,51 +99,51 @@ describe('Compare page', () => {
         pathname: '/compare',
         query,
       });
-
       expect(
         screen.getByText(
           createMatchRegexSeparatedByTags(
-            /Mit 500€ pro Monat über eine Laufzeit von 36 Monaten sind die effektiven monatlichen Kosten bei der Variante Finanzierung 752€ günstiger als bei der Variante Leasing\./
+            /At €500 per month over a term of 36 months, the effective monthly costs are €752 cheaper with the Finance variant than with the Lease variant\./
           )
         )
       ).toBeInTheDocument();
 
-      expect(screen.getByTestId('gesamtpreis-finanzierung').textContent).toBe(
+      expect(screen.getByTestId('total-payment-finance').textContent).toBe(
         query.finCarPrice
       );
-      expect(screen.getByTestId('gesamtpreis-leasing').textContent).toBe('-');
+      expect(screen.getByTestId('total-payment-lease').textContent).toBe('-');
 
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-finanzierung').textContent
+        screen.getByTestId('residual-value-after-term-finance').textContent
       ).toBe('27075');
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-leasing').textContent
+        screen.getByTestId('residual-value-after-term-lease').textContent
       ).toBe('-');
 
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-finanzierung').textContent
-      ).toBe('12925');
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-leasing').textContent
-      ).toBe('40000');
+      expect(screen.getByTestId('costs-for-term-finance').textContent).toBe(
+        '12925'
+      );
+      expect(screen.getByTestId('costs-for-term-lease').textContent).toBe(
+        '40000'
+      );
 
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-finanzierung').textContent
+        screen.getByTestId('monthly-costs-effective-finance').textContent
       ).toBe('359');
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-leasing').textContent
+        screen.getByTestId('monthly-costs-effective-lease').textContent
       ).toBe('1111');
 
-      fireEvent.click(screen.getByRole('button', { name: 'Zurück' }));
+      fireEvent.click(screen.getByRole('button', { name: /back/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { ...query, step: 'leas' },
       });
 
-      fireEvent.click(screen.getByRole('button', { name: 'Neu starten' }));
+      fireEvent.click(screen.getByRole('button', { name: /restart/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { step: 'fin' },
       });
     });
+
     it('should work for financing winner', () => {
       const query = {
         finCarPrice: '40000',
@@ -167,48 +167,49 @@ describe('Compare page', () => {
       expect(
         screen.getByText(
           createMatchRegexSeparatedByTags(
-            /Mit 250€ pro Monat über eine Laufzeit von 36 Monaten sind die effektiven monatlichen Kosten bei der Variante Leasing 26€ günstiger als bei der Variante Finanzierung\./
+            /At €250 per month over a term of 36 months, the effective monthly costs are €26 cheaper with the Lease variant than with the Finance variant\./
           )
         )
       ).toBeInTheDocument();
 
-      expect(screen.getByTestId('gesamtpreis-finanzierung').textContent).toBe(
+      expect(screen.getByTestId('total-payment-finance').textContent).toBe(
         query.finCarPrice
       );
-      expect(screen.getByTestId('gesamtpreis-leasing').textContent).toBe('-');
+      expect(screen.getByTestId('total-payment-lease').textContent).toBe('-');
 
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-finanzierung').textContent
+        screen.getByTestId('residual-value-after-term-finance').textContent
       ).toBe('27075');
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-leasing').textContent
+        screen.getByTestId('residual-value-after-term-lease').textContent
       ).toBe('-');
 
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-finanzierung').textContent
-      ).toBe('12925');
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-leasing').textContent
-      ).toBe('12000');
+      expect(screen.getByTestId('costs-for-term-finance').textContent).toBe(
+        '12925'
+      );
+      expect(screen.getByTestId('costs-for-term-lease').textContent).toBe(
+        '12000'
+      );
 
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-finanzierung').textContent
+        screen.getByTestId('monthly-costs-effective-finance').textContent
       ).toBe('359');
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-leasing').textContent
+        screen.getByTestId('monthly-costs-effective-lease').textContent
       ).toBe('333');
 
-      fireEvent.click(screen.getByRole('button', { name: 'Zurück' }));
+      fireEvent.click(screen.getByRole('button', { name: /back/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { ...query, step: 'leas' },
       });
 
-      fireEvent.click(screen.getByRole('button', { name: 'Neu starten' }));
+      fireEvent.click(screen.getByRole('button', { name: /restart/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { step: 'fin' },
       });
     });
   });
+
   it('should render null for invalid step', async () => {
     renderPage(<Compare />, {
       pathname: '/compare',
