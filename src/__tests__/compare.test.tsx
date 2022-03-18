@@ -1,6 +1,8 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import Compare from '~/pages/compare';
+import messagesDE from '../messages/de.json';
+
+import Compare, { getStaticProps } from '~/pages/compare';
 import { createMatchRegexSeparatedByTags } from '~/test/matchRegexSeparatedByTags';
 import { renderPage } from '~/test/renderPage';
 
@@ -216,5 +218,11 @@ describe('Compare page', () => {
         name: 'Finanzierung',
       })
     ).not.toBeInTheDocument();
+  });
+
+  it('should inject messages', async () => {
+    expect(await getStaticProps({ locale: 'de' })).toEqual({
+      props: { messages: messagesDE },
+    });
   });
 });

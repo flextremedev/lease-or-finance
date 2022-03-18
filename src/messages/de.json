@@ -24,5 +24,15 @@
     "monthlyRate": "Monatliche Rate",
     "initialPayment": "Anzahlung",
     "endingRate": "Schlussrate"
+  },
+  "Leasing": {
+    "pageTitle": "Finanzierung oder Leasing | Leasing",
+    "title": "Leasing",
+    "carPrice": "Kaufpreis",
+    "runtime": "Zahlungsdauer",
+    "runtimeMonths": "{monthValue} Monate",
+    "monthlyRate": "Monatliche Rate",
+    "initialPayment": "Anzahlung",
+    "endingRate": "Schlussrate"
   }
 }

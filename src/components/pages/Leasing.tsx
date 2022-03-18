@@ -16,6 +16,7 @@ import {
   SliderTrack,
   VStack,
 } from '@chakra-ui/react';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
@@ -36,9 +37,10 @@ type FormData = {
   leasRuntime: string;
 };
 
-const NOT_EMPTY_ERROR = 'Bitte tragen Sie einen Wert ein';
-
 export const Leasing = ({ onBack, onNext }: LeasingProps) => {
+  const t = useTranslations('Leasing');
+  const tC = useTranslations('Common');
+
   const { query } = useRouter();
   const {
     leasCarPrice: leasCarPriceFromQuery,
@@ -84,17 +86,17 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         mb="1em"
         fontWeight="black"
       >
-        Leasing
+        {t('title')}
       </Heading>
       <VStack as="form" spacing={8} onSubmit={submit}>
         <FormControl isInvalid={Boolean(errors.leasCarPrice)}>
           <FormLabel htmlFor="leasCarPrice" id="leasCarPriceLabel">
-            Kaufpreis
+            {t('carPrice')}
           </FormLabel>
           <NumberInput id="leasCarPrice">
             <NumberInputField
               {...register('leasCarPrice', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -106,7 +108,7 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         </FormControl>
         <FormControl>
           <FormLabel htmlFor="leasRuntime" id="leasRuntimeLabel">
-            Zahlungsdauer
+            {t('runtime')}
           </FormLabel>
           <Slider
             colorScheme="brand"
@@ -118,7 +120,7 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
             onChange={handleLeasRuntime}
           >
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
-              {leasRuntime} Monate
+              {t('runtimeMonths', { monthValue: leasRuntime })}
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
@@ -128,12 +130,12 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.leasMonthlyRate)}>
           <FormLabel htmlFor="leasMonthlyRate" id="leasMonthlyRateLabel">
-            Monatliche Rate
+            {t('monthlyRate')}
           </FormLabel>
           <NumberInput id="leasMonthlyRate">
             <NumberInputField
               {...register('leasMonthlyRate', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -145,12 +147,12 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.leasInitialPayment)}>
           <FormLabel htmlFor="leasInitialPayment" id="leasInitialPaymentLabel">
-            Anzahlung
+            {t('initialPayment')}
           </FormLabel>
           <NumberInput id="leasInitialPayment">
             <NumberInputField
               {...register('leasInitialPayment', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -162,12 +164,12 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.leasEndingRate)}>
           <FormLabel htmlFor="leasEndingRate" id="leasEndingRateLabel">
-            Schlusszahlung
+            {t('endingRate')}
           </FormLabel>
           <NumberInput id="leasEndingRate">
             <NumberInputField
               {...register('leasEndingRate', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -179,10 +181,10 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
           <Button variant="ghost" colorScheme="brand" onClick={onBack}>
-            Zurück
+            {tC('back')}
           </Button>
           <Button variant="solid" colorScheme="brand" type="submit">
-            Weiter
+            {tC('continue')}
           </Button>
         </HStack>
       </VStack>

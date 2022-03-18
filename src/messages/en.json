@@ -24,5 +24,15 @@
     "monthlyRate": "Monthly payment",
     "initialPayment": "Initial payment",
     "endingRate": "Ending rate"
+  },
+  "Leasing": {
+    "pageTitle": "Finance or lease | Lease",
+    "title": "Lease",
+    "carPrice": "Vehicle price",
+    "runtime": "Contract length",
+    "runtimeMonths": "{monthValue} Months",
+    "monthlyRate": "Monthly payment",
+    "initialPayment": "Initial payment",
+    "endingRate": "Ending rate"
   }
 }
