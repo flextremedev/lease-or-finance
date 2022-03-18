@@ -24,6 +24,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link
           href="/icons/favicon-16x16.png"
           rel="icon"
@@ -36,7 +37,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           type="image/png"
           sizes="32x32"
         />
-        <link rel="apple-touch-icon" href="/apple-icon.png"></link>
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"></link>
         <meta name="theme-color" content="#3A6CE9" />
       </Head>
       <NextIntlProvider messages={pageProps.messages}>
