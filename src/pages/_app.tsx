@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { ChakraProvider } from '@chakra-ui/react';
+import { NextIntlProvider } from 'next-intl';
 import { AppProps } from 'next/app';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
@@ -22,8 +23,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
-        <title>Finance or lease</title>
-
         <link rel="manifest" href="/manifest.json" />
         <link
           href="/icons/favicon-16x16.png"
@@ -40,9 +39,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#3A6CE9" />
       </Head>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <NextIntlProvider messages={pageProps.messages}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </NextIntlProvider>
     </>
   );
 }

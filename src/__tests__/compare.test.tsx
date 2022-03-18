@@ -1,14 +1,16 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import Compare from '~/pages/compare';
+import messagesDE from '../messages/de.json';
+
+import Compare, { getStaticProps } from '~/pages/compare';
 import { createMatchRegexSeparatedByTags } from '~/test/matchRegexSeparatedByTags';
 import { renderPage } from '~/test/renderPage';
 
 describe('Compare page', () => {
   it.each`
-    case           | key       | heading           | next        | prev
-    ${'financing'} | ${'fin'}  | ${'Finanzierung'} | ${'leas'}   | ${'/'}
-    ${'leasing'}   | ${'leas'} | ${'Leasing'}      | ${'result'} | ${{ query: { step: 'fin' } }}
+    case           | key       | heading      | next        | prev
+    ${'financing'} | ${'fin'}  | ${'Finance'} | ${'leas'}   | ${'/'}
+    ${'leasing'}   | ${'leas'} | ${'Lease'}   | ${'result'} | ${{ query: { step: 'fin' } }}
   `('should work for $case', async ({ key, heading, next, prev }) => {
     const { routerMock } = renderPage(<Compare />, {
       pathname: '/compare',
@@ -20,46 +22,44 @@ describe('Compare page', () => {
       })
     ).toBeInTheDocument();
 
-    fireEvent.submit(screen.getByRole('button', { name: 'Weiter' }));
+    fireEvent.submit(screen.getByRole('button', { name: 'Continue' }));
 
     await waitFor(() => {
-      expect(
-        screen.getAllByText('Bitte tragen Sie einen Wert ein')
-      ).toHaveLength(4);
+      expect(screen.getAllByText('Please enter a value')).toHaveLength(4);
     });
 
-    expect(screen.getByLabelText('Kaufpreis')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Kaufpreis'), {
+    expect(screen.getByLabelText(/vehicle price/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/vehicle price/i), {
       target: {
         value: '1',
       },
     });
-    expect(screen.getByLabelText('Zahlungsdauer')).toBeInTheDocument();
+    expect(screen.getByLabelText(/contract length/i)).toBeInTheDocument();
 
-    expect(screen.getByLabelText('Monatliche Rate')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Monatliche Rate'), {
+    expect(screen.getByLabelText(/monthly payment/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/monthly payment/i), {
       target: {
         value: '2',
       },
     });
-    expect(screen.getByLabelText('Anzahlung')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Anzahlung'), {
+    expect(screen.getByLabelText(/initial payment/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/initial payment/i), {
       target: {
         value: '3',
       },
     });
-    expect(screen.getByLabelText('Schlusszahlung')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Schlusszahlung'), {
+    expect(screen.getByLabelText(/ending rate/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/ending rate/i), {
       target: {
         value: '4',
       },
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Zurück' }));
+    fireEvent.click(screen.getByRole('button', { name: /back/i }));
     expect(routerMock.push).toHaveBeenCalledTimes(1);
     expect(routerMock.push).toHaveBeenLastCalledWith(prev);
 
-    fireEvent.submit(screen.getByRole('button', { name: 'Weiter' }));
+    fireEvent.submit(screen.getByRole('button', { name: /continue/i }));
     await waitFor(() => {
       expect(routerMock.push).toHaveBeenCalledTimes(2);
     });
@@ -99,51 +99,51 @@ describe('Compare page', () => {
         pathname: '/compare',
         query,
       });
-
       expect(
         screen.getByText(
           createMatchRegexSeparatedByTags(
-            /Mit 500€ pro Monat über eine Laufzeit von 36 Monaten sind die effektiven monatlichen Kosten bei der Variante Finanzierung 752€ günstiger als bei der Variante Leasing\./
+            /At €500 per month over a term of 36 months, the effective monthly costs are €752 cheaper with the Finance variant than with the Lease variant\./
           )
         )
       ).toBeInTheDocument();
 
-      expect(screen.getByTestId('gesamtpreis-finanzierung').textContent).toBe(
+      expect(screen.getByTestId('total-payment-finance').textContent).toBe(
         query.finCarPrice
       );
-      expect(screen.getByTestId('gesamtpreis-leasing').textContent).toBe('-');
+      expect(screen.getByTestId('total-payment-lease').textContent).toBe('-');
 
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-finanzierung').textContent
+        screen.getByTestId('residual-value-after-term-finance').textContent
       ).toBe('27075');
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-leasing').textContent
+        screen.getByTestId('residual-value-after-term-lease').textContent
       ).toBe('-');
 
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-finanzierung').textContent
-      ).toBe('12925');
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-leasing').textContent
-      ).toBe('40000');
+      expect(screen.getByTestId('costs-for-term-finance').textContent).toBe(
+        '12925'
+      );
+      expect(screen.getByTestId('costs-for-term-lease').textContent).toBe(
+        '40000'
+      );
 
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-finanzierung').textContent
+        screen.getByTestId('monthly-costs-effective-finance').textContent
       ).toBe('359');
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-leasing').textContent
+        screen.getByTestId('monthly-costs-effective-lease').textContent
       ).toBe('1111');
 
-      fireEvent.click(screen.getByRole('button', { name: 'Zurück' }));
+      fireEvent.click(screen.getByRole('button', { name: /back/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { ...query, step: 'leas' },
       });
 
-      fireEvent.click(screen.getByRole('button', { name: 'Neu starten' }));
+      fireEvent.click(screen.getByRole('button', { name: /restart/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { step: 'fin' },
       });
     });
+
     it('should work for financing winner', () => {
       const query = {
         finCarPrice: '40000',
@@ -167,48 +167,49 @@ describe('Compare page', () => {
       expect(
         screen.getByText(
           createMatchRegexSeparatedByTags(
-            /Mit 250€ pro Monat über eine Laufzeit von 36 Monaten sind die effektiven monatlichen Kosten bei der Variante Leasing 26€ günstiger als bei der Variante Finanzierung\./
+            /At €250 per month over a term of 36 months, the effective monthly costs are €26 cheaper with the Lease variant than with the Finance variant\./
           )
         )
       ).toBeInTheDocument();
 
-      expect(screen.getByTestId('gesamtpreis-finanzierung').textContent).toBe(
+      expect(screen.getByTestId('total-payment-finance').textContent).toBe(
         query.finCarPrice
       );
-      expect(screen.getByTestId('gesamtpreis-leasing').textContent).toBe('-');
+      expect(screen.getByTestId('total-payment-lease').textContent).toBe('-');
 
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-finanzierung').textContent
+        screen.getByTestId('residual-value-after-term-finance').textContent
       ).toBe('27075');
       expect(
-        screen.getByTestId('restwert-nach-laufzeit-leasing').textContent
+        screen.getByTestId('residual-value-after-term-lease').textContent
       ).toBe('-');
 
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-finanzierung').textContent
-      ).toBe('12925');
-      expect(
-        screen.getByTestId('kosten-für-laufzeit-leasing').textContent
-      ).toBe('12000');
+      expect(screen.getByTestId('costs-for-term-finance').textContent).toBe(
+        '12925'
+      );
+      expect(screen.getByTestId('costs-for-term-lease').textContent).toBe(
+        '12000'
+      );
 
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-finanzierung').textContent
+        screen.getByTestId('monthly-costs-effective-finance').textContent
       ).toBe('359');
       expect(
-        screen.getByTestId('eff-kosten-pro-monat-leasing').textContent
+        screen.getByTestId('monthly-costs-effective-lease').textContent
       ).toBe('333');
 
-      fireEvent.click(screen.getByRole('button', { name: 'Zurück' }));
+      fireEvent.click(screen.getByRole('button', { name: /back/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { ...query, step: 'leas' },
       });
 
-      fireEvent.click(screen.getByRole('button', { name: 'Neu starten' }));
+      fireEvent.click(screen.getByRole('button', { name: /restart/i }));
       expect(routerMock.push).toHaveBeenLastCalledWith({
         query: { step: 'fin' },
       });
     });
   });
+
   it('should render null for invalid step', async () => {
     renderPage(<Compare />, {
       pathname: '/compare',
@@ -218,5 +219,11 @@ describe('Compare page', () => {
         name: 'Finanzierung',
       })
     ).not.toBeInTheDocument();
+  });
+
+  it('should inject messages', async () => {
+    expect(await getStaticProps({ locale: 'de' })).toEqual({
+      props: { messages: messagesDE },
+    });
   });
 });

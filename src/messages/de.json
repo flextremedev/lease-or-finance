@@ -1,0 +1,48 @@
+{
+  "Home": {
+    "pageTitle": "Finanzierung oder Leasing | Finden Sie die beste Option",
+    "title": "Finden Sie die beste Option",
+    "description": "Sie möchten wissen, ob <strong>Finanzierung</strong> oder <strong>Leasing</strong> die bessere Option für Sie ist? Hier finden Sie es heraus!",
+    "actionLabel": "Jetzt vergleichen"
+  },
+  "Common": {
+    "errors": {
+      "emptyString": "Bitte tragen Sie einen Wert ein"
+    },
+    "continue": "Weiter",
+    "back": "Zurück",
+    "financing": "Finanzierung",
+    "leasing": "Leasing",
+    "result": "Ergebnis"
+  },
+  "Financing": {
+    "pageTitle": "Finanzierung oder Leasing | Finanzierung",
+    "title": "Finanzierung",
+    "carPrice": "Kaufpreis",
+    "runtime": "Zahlungsdauer",
+    "runtimeMonths": "{monthValue} Monate",
+    "monthlyRate": "Monatliche Rate",
+    "initialPayment": "Anzahlung",
+    "endingRate": "Schlussrate"
+  },
+  "Leasing": {
+    "pageTitle": "Finanzierung oder Leasing | Leasing",
+    "title": "Leasing",
+    "carPrice": "Kaufpreis",
+    "runtime": "Zahlungsdauer",
+    "runtimeMonths": "{monthValue} Monate",
+    "monthlyRate": "Monatliche Rate",
+    "initialPayment": "Anzahlung",
+    "endingRate": "Schlussrate"
+  },
+  "Result": {
+    "pageTitle": "Finanzierung oder Leasing | Ergebnis",
+    "title": "Ergebnis",
+    "summary": "Mit <strong>{winnerMonthlyRate}€</strong> pro Monat über eine Laufzeit von <strong>{winnerRuntime}</strong> Monaten sind die effektiven monatlichen Kosten bei der Variante <strong>{winnerLabel}</strong> <strong>{difference}</strong>€ günstiger als bei der Variante <strong>{loserLabel}</strong>.",
+    "totalPayment": "Gesamtpreis",
+    "residualValueAfterTerm": "Restwert nach Laufzeit",
+    "costsForTerm": "Kosten für Laufzeit",
+    "monthlyCosts": "Eff. Kosten pro Monat",
+    "restart": "Neu starten"
+  }
+}

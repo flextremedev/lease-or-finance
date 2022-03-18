@@ -8,4 +8,11 @@ module.exports = withPWA({
     dest: 'public',
     runtimeCaching,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  i18n: {
+    locales: ['en', 'de'],
+    defaultLocale: 'en',
+  },
 });

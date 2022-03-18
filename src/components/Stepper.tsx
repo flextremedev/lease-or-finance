@@ -1,16 +1,17 @@
 import { Box, Flex, HStack, Text } from '@chakra-ui/react';
-
-const steps = [
-  { step: 1, label: 'Finanzierung' },
-  { step: 2, label: 'Leasing' },
-  { step: 3, label: 'Ergebnis' },
-];
+import { useTranslations } from 'next-intl';
 
 type StepperProps = {
   activeStep: number;
 };
 
 export const Stepper = ({ activeStep }: StepperProps) => {
+  const t = useTranslations('Common');
+  const steps = [
+    { step: 1, label: t('financing') },
+    { step: 2, label: t('leasing') },
+    { step: 3, label: t('result') },
+  ];
   return (
     <HStack
       w="full"

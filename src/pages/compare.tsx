@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetStaticPropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 import { Financing } from '~/components/pages/Financing';
@@ -76,5 +76,13 @@ const Compare: NextPage = () => {
   }
   return null;
 };
+
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  return {
+    props: {
+      messages: (await import(`../messages/${locale}.json`)).default,
+    },
+  };
+}
 
 export default Compare;

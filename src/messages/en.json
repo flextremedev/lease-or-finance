@@ -1,0 +1,48 @@
+{
+  "Home": {
+    "pageTitle": "Finance or lease | Find the best option",
+    "title": "Find the best option",
+    "description": "You want to know whether <strong>financing</strong> or <strong>leasing</strong> is the better option for you? Find out here!",
+    "actionLabel": "Compare now"
+  },
+  "Common": {
+    "errors": {
+      "emptyString": "Please enter a value"
+    },
+    "continue": "Continue",
+    "back": "Back",
+    "financing": "Finance",
+    "leasing": "Lease",
+    "result": "Result"
+  },
+  "Financing": {
+    "pageTitle": "Finance or lease | Finance",
+    "title": "Finance",
+    "carPrice": "Vehicle price",
+    "runtime": "Contract length",
+    "runtimeMonths": "{monthValue} Months",
+    "monthlyRate": "Monthly payment",
+    "initialPayment": "Initial payment",
+    "endingRate": "Ending rate"
+  },
+  "Leasing": {
+    "pageTitle": "Finance or lease | Lease",
+    "title": "Lease",
+    "carPrice": "Vehicle price",
+    "runtime": "Contract length",
+    "runtimeMonths": "{monthValue} Months",
+    "monthlyRate": "Monthly payment",
+    "initialPayment": "Initial payment",
+    "endingRate": "Ending rate"
+  },
+  "Result": {
+    "pageTitle": "Finance or lease | Result",
+    "title": "Result",
+    "summary": "At <strong>€{winnerMonthlyRate}</strong> per month over a term of <strong>{winnerRuntime} months</strong>, the effective monthly costs are <strong>€{difference}</strong> cheaper with the <strong>{winnerLabel}</strong> variant than with the <strong>{loserLabel}</strong> variant.",
+    "totalPayment": "Total payment",
+    "residualValueAfterTerm": "Residual value after term",
+    "costsForTerm": "Costs for term",
+    "monthlyCosts": "Monthly costs effective",
+    "restart": "Restart"
+  }
+}

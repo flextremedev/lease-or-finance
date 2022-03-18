@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 import { Box, Button, Flex, Heading, HStack } from '@chakra-ui/react';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { Layout } from '~/components/Layout';
@@ -31,6 +33,9 @@ type ResultProps = {
 };
 
 export const Result = ({ onBack, onRestart }: ResultProps) => {
+  const t = useTranslations('Result');
+  const tC = useTranslations('Common');
+
   const { query } = useRouter();
 
   const {
@@ -71,20 +76,25 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
   const leasCostsEffective = (leasTotalPrice / Number(leasRuntime)).toFixed();
 
   const results = [
-    { label: 'Gesamtpreis', leas: '-', fin: finCarPrice, isComparable: false },
     {
-      label: 'Restwert nach Laufzeit',
+      label: t('totalPayment'),
+      leas: '-',
+      fin: finCarPrice,
+      isComparable: false,
+    },
+    {
+      label: t('residualValueAfterTerm'),
       leas: '-',
       fin: finResidualValue,
       isComparable: false,
     },
     {
-      label: 'Kosten für Laufzeit',
+      label: t('costsForTerm'),
       leas: leasTotalPrice,
       fin: finTotalPrice - finResidualValue,
     },
     {
-      label: 'Eff. Kosten pro Monat',
+      label: t('monthlyCosts'),
       leas: leasCostsEffective,
       fin: finCostsEffective,
     },
@@ -93,99 +103,109 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
     Number(finCostsEffective) < Number(leasCostsEffective) ? 'fin' : 'leas';
   const winnerMonthlyRate = winner === 'fin' ? finMonthlyRate : leasMonthlyRate;
   const winnerRuntime = winner === 'fin' ? finRuntime : leasRuntime;
-  const winnerLabel = { fin: 'Finanzierung', leas: 'Leasing' }[winner];
+  const winnerLabel = { fin: tC('financing'), leas: tC('leasing') }[winner];
   const loser = { leas: 'fin', fin: 'leas' }[winner];
-  const loserLabel = { fin: 'Finanzierung', leas: 'Leasing' }[loser];
+  const loserLabel = { fin: tC('financing'), leas: tC('leasing') }[loser];
   const winnerCostsEffective =
     winner === 'fin' ? finCostsEffective : leasCostsEffective;
   const loserCostsEffective =
     winner !== 'fin' ? finCostsEffective : leasCostsEffective;
 
+  const difference = Number(loserCostsEffective) - Number(winnerCostsEffective);
+
   return (
-    <Layout backgroundImage={<ResultImage />}>
-      <Stepper activeStep={3} />
-      <Heading
-        as="h1"
-        size="2xl"
-        mt={{ base: 0, md: '1em' }}
-        mb="1em"
-        fontWeight="black"
-      >
-        Ergebnis
-      </Heading>
-      <Box borderRadius="md" bgColor="brand.500" color="white" p={6} mb={8}>
-        Mit <b>{winnerMonthlyRate}€</b> pro Monat über eine Laufzeit von{' '}
-        <b>{winnerRuntime}</b> Monaten sind die effektiven monatlichen Kosten
-        bei der Variante <b>{winnerLabel}</b>{' '}
-        <b>{Number(loserCostsEffective) - Number(winnerCostsEffective)}</b>€
-        günstiger als bei der Variante <b>{loserLabel}</b>.
-      </Box>
-      <Flex justify="space-between" mb={4}>
-        <Heading as="h2" size="md">
-          Finanzierung
+    <>
+      <Head>
+        <title>{t('pageTitle')}</title>
+      </Head>
+      <Layout backgroundImage={<ResultImage />}>
+        <Stepper activeStep={3} />
+        <Heading
+          as="h1"
+          size="2xl"
+          mt={{ base: 0, md: '1em' }}
+          mb="1em"
+          fontWeight="black"
+        >
+          {t('title')}
         </Heading>
-        <Heading as="h2" size="md">
-          Leasing
-        </Heading>
-      </Flex>
-      {results.map(({ fin, label, leas, isComparable }) => {
-        return (
-          <Box
-            key={label}
-            borderBottom="1px solid"
-            borderBottomColor="gray.200"
-          >
-            <Flex h="16" alignItems="center">
-              <Flex
-                flex={1}
-                color={
-                  isComparable === false
-                    ? 'black'
-                    : winner === 'fin'
-                    ? 'green.700'
-                    : 'red.500'
-                }
-                data-testid={`${label
-                  .toLowerCase()
-                  .replaceAll(' ', '-')
-                  .replaceAll('.', '')}-finanzierung`}
-              >
-                {fin}
+        <Box borderRadius="md" bgColor="brand.500" color="white" p={6} mb={8}>
+          {t.rich('summary', {
+            winnerMonthlyRate,
+            winnerRuntime,
+            winnerLabel,
+            loserCostsEffective,
+            winnerCostsEffective,
+            difference,
+            loserLabel,
+            strong: (children) => <strong>{children}</strong>,
+          })}
+        </Box>
+        <Flex justify="space-between" mb={4}>
+          <Heading as="h2" size="md">
+            {tC('financing')}
+          </Heading>
+          <Heading as="h2" size="md">
+            {tC('leasing')}
+          </Heading>
+        </Flex>
+        {results.map(({ fin, label, leas, isComparable }) => {
+          return (
+            <Box
+              key={label}
+              borderBottom="1px solid"
+              borderBottomColor="gray.200"
+            >
+              <Flex h="16" alignItems="center">
+                <Flex
+                  flex={1}
+                  color={
+                    isComparable === false
+                      ? 'black'
+                      : winner === 'fin'
+                      ? 'green.700'
+                      : 'red.500'
+                  }
+                  data-testid={`${label
+                    .replaceAll(' ', '-')
+                    .replaceAll('.', '')}-${tC('financing')}`.toLowerCase()}
+                >
+                  {fin}
+                </Flex>
+                <Flex>
+                  <Heading as="h3" size="xs">
+                    {label}
+                  </Heading>
+                </Flex>
+                <Flex
+                  flex={1}
+                  color={
+                    isComparable === false
+                      ? 'black'
+                      : winner === 'leas'
+                      ? 'green.700'
+                      : 'red.500'
+                  }
+                  data-testid={`${label
+                    .replaceAll(' ', '-')
+                    .replaceAll('.', '')}-${tC('leasing')}`.toLowerCase()}
+                  justify="flex-end"
+                >
+                  {leas}
+                </Flex>
               </Flex>
-              <Flex>
-                <Heading as="h3" size="xs">
-                  {label}
-                </Heading>
-              </Flex>
-              <Flex
-                flex={1}
-                color={
-                  isComparable === false
-                    ? 'black'
-                    : winner === 'leas'
-                    ? 'green.700'
-                    : 'red.500'
-                }
-                data-testid={`${label
-                  .toLowerCase()
-                  .replaceAll(' ', '-')
-                  .replaceAll('.', '')}-leasing`}
-                justify="flex-end"
-              >
-                {leas}
-              </Flex>
-            </Flex>
-          </Box>
-        );
-      })}
-      <HStack spacing={4} justify="end" alignSelf="stretch" mt={8}>
-        <Button variant="ghost" colorScheme="brand" onClick={onBack}>
-          Zurück
-        </Button>
-        <Button variant="outline" colorScheme="brand" onClick={onRestart}>
-          Neu starten
-        </Button>
-      </HStack>
-    </Layout>
+            </Box>
+          );
+        })}
+        <HStack spacing={4} justify="end" alignSelf="stretch" mt={8}>
+          <Button variant="ghost" colorScheme="brand" onClick={onBack}>
+            {tC('back')}
+          </Button>
+          <Button variant="outline" colorScheme="brand" onClick={onRestart}>
+            {t('restart')}
+          </Button>
+        </HStack>
+      </Layout>
+    </>
   );
 };

@@ -1,12 +1,13 @@
 import { fireEvent, screen } from '@testing-library/react';
 
+import messagesDE from '../messages/de.json';
 import { createMatchRegexSeparatedByTags } from '../test/matchRegexSeparatedByTags';
 
-import Home from '~/pages';
+import Home, { getStaticProps } from '~/pages';
 import { renderPage } from '~/test/renderPage';
 
 const matchTextSeparatedByTags = createMatchRegexSeparatedByTags(
-  /Sie möchten wissen, ob Finanzierung oder Leasing die bessere Option für Sie ist?.*Hier finden Sie es heraus!/
+  /You want to know whether financing or leasing is the better option for you\? Find out here!/
 );
 
 describe('Home', () => {
@@ -14,15 +15,20 @@ describe('Home', () => {
     const { routerMock } = renderPage(<Home />, { pathname: '/' });
 
     expect(
-      screen.getByRole('heading', { name: 'Finden Sie die beste Option' })
+      screen.getByRole('heading', { name: 'Find the best option' })
     ).toBeInTheDocument();
     expect(screen.queryByText(matchTextSeparatedByTags)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Jetzt vergleichen' }));
+    fireEvent.click(screen.getByRole('button', { name: /compare now/i }));
     expect(routerMock.push).toHaveBeenCalledTimes(1);
     expect(routerMock.push).toHaveBeenLastCalledWith({
       pathname: '/compare',
       query: { step: 'fin' },
+    });
+  });
+  it('should inject messages', async () => {
+    expect(await getStaticProps({ locale: 'de' })).toEqual({
+      props: { messages: messagesDE },
     });
   });
 });
