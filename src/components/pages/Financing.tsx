@@ -16,6 +16,7 @@ import {
   SliderTrack,
   VStack,
 } from '@chakra-ui/react';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
@@ -36,9 +37,9 @@ type FormData = {
   finEndingRate: string;
 };
 
-const NOT_EMPTY_ERROR = 'Bitte tragen Sie einen Wert ein';
-
 export const Financing = ({ onBack, onNext }: FinancingProps) => {
+  const t = useTranslations('Financing');
+  const tC = useTranslations('Common');
   const { query } = useRouter();
   const {
     finCarPrice: finCarPriceFromQuery,
@@ -83,17 +84,17 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         mb="1em"
         fontWeight="black"
       >
-        Finanzierung
+        {t('title')}
       </Heading>
       <VStack as="form" spacing={8} onSubmit={submit}>
         <FormControl isInvalid={Boolean(errors.finCarPrice)}>
           <FormLabel htmlFor="finCarPrice" id="finCarPriceLabel">
-            Kaufpreis
+            {t('carPrice')}
           </FormLabel>
           <NumberInput id="finCarPrice">
             <NumberInputField
               {...register('finCarPrice', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -105,7 +106,7 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         </FormControl>
         <FormControl>
           <FormLabel htmlFor="finRuntime" id="finRuntimeLabel">
-            Zahlungsdauer
+            {t('runtime')}
           </FormLabel>
           <Slider
             colorScheme="brand"
@@ -117,7 +118,7 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
             onChange={handleFinRuntime}
           >
             <SliderMark value={60} mt={4} ml={-20} fontSize="sm">
-              {finRuntime} Monate
+              {t('runtimeMonths', { monthValue: finRuntime })}
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
@@ -127,12 +128,12 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.finMonthlyRate)}>
           <FormLabel htmlFor="finMonthlyRate" id="finMonthlyRateLabel">
-            Monatliche Rate
+            {t('monthlyRate')}
           </FormLabel>
           <NumberInput id="finMonthlyRate">
             <NumberInputField
               {...register('finMonthlyRate', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -144,12 +145,12 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.finInitialPayment)}>
           <FormLabel htmlFor="finInitialPayment" id="finInitialPaymentLabel">
-            Anzahlung
+            {t('initialPayment')}
           </FormLabel>
           <NumberInput id="finInitialPayment">
             <NumberInputField
               {...register('finInitialPayment', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -161,12 +162,12 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         </FormControl>
         <FormControl isInvalid={Boolean(errors.finEndingRate)}>
           <FormLabel htmlFor="finEndingRate" id="finEndingRateLabel">
-            Schlusszahlung
+            {t('endingRate')}
           </FormLabel>
           <NumberInput id="finEndingRate">
             <NumberInputField
               {...register('finEndingRate', {
-                required: NOT_EMPTY_ERROR,
+                required: tC('errors.emptyString'),
               })}
               border="1px solid"
               borderColor="gray.200"
@@ -178,10 +179,10 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
         </FormControl>
         <HStack spacing={4} justify="end" alignSelf="stretch">
           <Button onClick={onBack} variant="ghost" colorScheme="brand">
-            Zurück
+            {tC('back')}
           </Button>
           <Button type="submit" colorScheme="brand">
-            Weiter
+            {tC('continue')}
           </Button>
         </HStack>
       </VStack>

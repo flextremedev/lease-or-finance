@@ -6,9 +6,9 @@ import { renderPage } from '~/test/renderPage';
 
 describe('Compare page', () => {
   it.each`
-    case           | key       | heading           | next        | prev
-    ${'financing'} | ${'fin'}  | ${'Finanzierung'} | ${'leas'}   | ${'/'}
-    ${'leasing'}   | ${'leas'} | ${'Leasing'}      | ${'result'} | ${{ query: { step: 'fin' } }}
+    case           | key       | heading      | next        | prev
+    ${'financing'} | ${'fin'}  | ${'Finance'} | ${'leas'}   | ${'/'}
+    ${'leasing'}   | ${'leas'} | ${'Lease'}   | ${'result'} | ${{ query: { step: 'fin' } }}
   `('should work for $case', async ({ key, heading, next, prev }) => {
     const { routerMock } = renderPage(<Compare />, {
       pathname: '/compare',
@@ -20,46 +20,44 @@ describe('Compare page', () => {
       })
     ).toBeInTheDocument();
 
-    fireEvent.submit(screen.getByRole('button', { name: 'Weiter' }));
+    fireEvent.submit(screen.getByRole('button', { name: 'Continue' }));
 
     await waitFor(() => {
-      expect(
-        screen.getAllByText('Bitte tragen Sie einen Wert ein')
-      ).toHaveLength(4);
+      expect(screen.getAllByText('Please enter a value')).toHaveLength(4);
     });
 
-    expect(screen.getByLabelText('Kaufpreis')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Kaufpreis'), {
+    expect(screen.getByLabelText(/vehicle price/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/vehicle price/i), {
       target: {
         value: '1',
       },
     });
-    expect(screen.getByLabelText('Zahlungsdauer')).toBeInTheDocument();
+    expect(screen.getByLabelText(/contract length/i)).toBeInTheDocument();
 
-    expect(screen.getByLabelText('Monatliche Rate')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Monatliche Rate'), {
+    expect(screen.getByLabelText(/monthly payment/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/monthly payment/i), {
       target: {
         value: '2',
       },
     });
-    expect(screen.getByLabelText('Anzahlung')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Anzahlung'), {
+    expect(screen.getByLabelText(/initial payment/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/initial payment/i), {
       target: {
         value: '3',
       },
     });
-    expect(screen.getByLabelText('Schlusszahlung')).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText('Schlusszahlung'), {
+    expect(screen.getByLabelText(/ending rate/i)).toBeInTheDocument();
+    fireEvent.input(screen.getByLabelText(/ending rate/i), {
       target: {
         value: '4',
       },
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Zurück' }));
+    fireEvent.click(screen.getByRole('button', { name: /back/i }));
     expect(routerMock.push).toHaveBeenCalledTimes(1);
     expect(routerMock.push).toHaveBeenLastCalledWith(prev);
 
-    fireEvent.submit(screen.getByRole('button', { name: 'Weiter' }));
+    fireEvent.submit(screen.getByRole('button', { name: /continue/i }));
     await waitFor(() => {
       expect(routerMock.push).toHaveBeenCalledTimes(2);
     });
