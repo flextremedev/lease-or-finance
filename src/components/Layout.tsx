@@ -26,6 +26,7 @@ export const Layout: React.FC<LayoutProps> = ({
           display="flex"
           flexDirection="column"
           justifyContent="center"
+          p={{ base: 4 }}
         >
           {backgroundImage}
         </Container>
