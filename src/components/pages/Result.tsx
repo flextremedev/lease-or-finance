@@ -117,6 +117,7 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
     <>
       <Head>
         <title>{t('pageTitle')}</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <Layout backgroundImage={<ResultImage />}>
         <Stepper activeStep={3} />
