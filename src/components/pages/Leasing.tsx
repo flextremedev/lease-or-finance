@@ -81,6 +81,7 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
     <>
       <Head>
         <title>{t('pageTitle')}</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <Layout backgroundImage={<RedCarImage />}>
         <Stepper activeStep={2} />

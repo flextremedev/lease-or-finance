@@ -79,6 +79,7 @@ export const Financing = ({ onBack, onNext }: FinancingProps) => {
     <>
       <Head>
         <title>{t('pageTitle')}</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <Layout backgroundImage={<BlueCarImage />}>
         <Stepper activeStep={1} />
