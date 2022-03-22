@@ -27,6 +27,9 @@ export const Home = ({ onNext }: HomeProps) => {
     <>
       <Head>
         <title>{t('pageTitle')}</title>
+        <meta name="og:title" content={t('pageTitle')} />
+        <meta name="description" content={t('description')} key="description" />
+        <meta name="og:description" content={t('description')} />
       </Head>
       <Layout backgroundImage={<ChoiceImage />} direction="row-reverse">
         <Flex
@@ -51,7 +54,7 @@ export const Home = ({ onNext }: HomeProps) => {
               {t('title')}
             </Heading>
             <Text fontSize={{ base: 'md', md: 'lg' }}>
-              {t.rich('description', {
+              {t.rich('descriptionRich', {
                 strong: (children) => <strong>{children}</strong>,
               })}
             </Text>

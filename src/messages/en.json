@@ -2,7 +2,8 @@
   "Home": {
     "pageTitle": "Finance or lease | Find the best option",
     "title": "Find the best option",
-    "description": "You want to know whether <strong>financing</strong> or <strong>leasing</strong> is the better option for you? Find out here!",
+    "descriptionRich": "You want to know whether <strong>financing</strong> or <strong>leasing</strong> is the better option for you? Find out here!",
+    "description": "You want to know whether financing or leasing is the better option for you? Find out here!",
     "actionLabel": "Compare now"
   },
   "Common": {
