@@ -30,6 +30,7 @@ export const Home = ({ onNext }: HomeProps) => {
         <meta name="og:title" content={t('pageTitle')} />
         <meta name="description" content={t('description')} key="description" />
         <meta name="og:description" content={t('description')} />
+        <meta name="robots" content="nofollow" />
       </Head>
       <Layout backgroundImage={<ChoiceImage />} direction="row-reverse">
         <Flex
