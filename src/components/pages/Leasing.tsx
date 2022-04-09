@@ -31,7 +31,6 @@ type LeasingProps = {
 };
 
 type FormData = {
-  leasCarPrice: string;
   leasMonthlyRate: string;
   leasInitialPayment: string;
   leasEndingRate: string;
@@ -44,7 +43,6 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
 
   const { query } = useRouter();
   const {
-    leasCarPrice: leasCarPriceFromQuery,
     leasEndingRate: leasEndingRateFromQuery,
     leasInitialPayment: leasInitialPaymentFromQuery,
     leasMonthlyRate: leasMonthlyRateFromQuery,
@@ -66,7 +64,6 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      leasCarPrice: leasCarPriceFromQuery,
       leasEndingRate: leasEndingRateFromQuery,
       leasInitialPayment: leasInitialPaymentFromQuery,
       leasMonthlyRate: leasMonthlyRateFromQuery,
@@ -95,23 +92,6 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
           {t('title')}
         </Heading>
         <VStack as="form" spacing={8} onSubmit={submit}>
-          <FormControl isInvalid={Boolean(errors.leasCarPrice)}>
-            <FormLabel htmlFor="leasCarPrice" id="leasCarPriceLabel">
-              {t('carPrice')}
-            </FormLabel>
-            <NumberInput id="leasCarPrice">
-              <NumberInputField
-                {...register('leasCarPrice', {
-                  required: tC('errors.emptyString'),
-                })}
-                border="1px solid"
-                borderColor="gray.200"
-              />
-            </NumberInput>
-            <FormErrorMessage>
-              {errors.leasCarPrice && errors.leasCarPrice.message}
-            </FormErrorMessage>
-          </FormControl>
           <FormControl>
             <FormLabel htmlFor="leasRuntime" id="leasRuntimeLabel">
               {t('runtime')}

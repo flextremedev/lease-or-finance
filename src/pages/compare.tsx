@@ -41,7 +41,6 @@ const Compare: NextPage = () => {
     return (
       <Leasing
         onNext={({
-          leasCarPrice,
           leasEndingRate,
           leasInitialPayment,
           leasMonthlyRate,
@@ -51,7 +50,6 @@ const Compare: NextPage = () => {
             {
               query: {
                 ...router.query,
-                leasCarPrice,
                 leasEndingRate,
                 leasInitialPayment,
                 leasMonthlyRate,

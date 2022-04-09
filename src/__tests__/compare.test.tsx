@@ -25,15 +25,19 @@ describe('Compare page', () => {
     fireEvent.submit(screen.getByRole('button', { name: 'Continue' }));
 
     await waitFor(() => {
-      expect(screen.getAllByText('Please enter a value')).toHaveLength(4);
+      expect(screen.getAllByText('Please enter a value')).toHaveLength(
+        key === 'fin' ? 4 : 3
+      );
     });
 
-    expect(screen.getByLabelText(/vehicle price/i)).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText(/vehicle price/i), {
-      target: {
-        value: '1',
-      },
-    });
+    if (key === 'fin') {
+      expect(screen.getByLabelText(/vehicle price/i)).toBeInTheDocument();
+      fireEvent.input(screen.getByLabelText(/vehicle price/i), {
+        target: {
+          value: '1',
+        },
+      });
+    }
     expect(screen.getByLabelText(/contract length/i)).toBeInTheDocument();
 
     expect(screen.getByLabelText(/monthly payment/i)).toBeInTheDocument();
@@ -66,7 +70,7 @@ describe('Compare page', () => {
     expect(routerMock.push).toHaveBeenLastCalledWith(
       {
         query: {
-          [`${key}CarPrice`]: '1',
+          ...(key === 'fin' ? { [`${key}CarPrice`]: '1' } : undefined),
           [`${key}EndingRate`]: '4',
           [`${key}InitialPayment`]: '3',
           [`${key}MonthlyRate`]: '2',
@@ -87,7 +91,6 @@ describe('Compare page', () => {
         finInitialPayment: '15000',
         finMonthlyRate: '500',
         finRuntime: '36',
-        leasCarPrice: '40000',
         leasEndingRate: '7000',
         leasInitialPayment: '15000',
         leasMonthlyRate: '500',
@@ -151,7 +154,6 @@ describe('Compare page', () => {
         finInitialPayment: '15000',
         finMonthlyRate: '500',
         finRuntime: '36',
-        leasCarPrice: '40000',
         leasEndingRate: '0',
         leasInitialPayment: '3000',
         leasMonthlyRate: '250',

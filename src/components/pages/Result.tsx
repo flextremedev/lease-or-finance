@@ -99,6 +99,7 @@ export const Result = ({ onBack, onRestart }: ResultProps) => {
       fin: finCostsEffective,
     },
   ];
+
   const winner =
     Number(finCostsEffective) < Number(leasCostsEffective) ? 'fin' : 'leas';
   const winnerMonthlyRate = winner === 'fin' ? finMonthlyRate : leasMonthlyRate;
