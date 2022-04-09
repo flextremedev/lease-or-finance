@@ -26,7 +26,7 @@ describe('Compare page', () => {
 
     await waitFor(() => {
       expect(screen.getAllByText('Please enter a value')).toHaveLength(
-        key === 'fin' ? 4 : 3
+        key === 'fin' ? 4 : 2
       );
     });
 
@@ -46,18 +46,22 @@ describe('Compare page', () => {
         value: '2',
       },
     });
+
     expect(screen.getByLabelText(/initial payment/i)).toBeInTheDocument();
     fireEvent.input(screen.getByLabelText(/initial payment/i), {
       target: {
         value: '3',
       },
     });
-    expect(screen.getByLabelText(/ending rate/i)).toBeInTheDocument();
-    fireEvent.input(screen.getByLabelText(/ending rate/i), {
-      target: {
-        value: '4',
-      },
-    });
+
+    if (key === 'fin') {
+      expect(screen.getByLabelText(/ending rate/i)).toBeInTheDocument();
+      fireEvent.input(screen.getByLabelText(/ending rate/i), {
+        target: {
+          value: '4',
+        },
+      });
+    }
 
     fireEvent.click(screen.getByRole('button', { name: /back/i }));
     expect(routerMock.push).toHaveBeenCalledTimes(1);
@@ -71,7 +75,7 @@ describe('Compare page', () => {
       {
         query: {
           ...(key === 'fin' ? { [`${key}CarPrice`]: '1' } : undefined),
-          [`${key}EndingRate`]: '4',
+          ...(key === 'fin' ? { [`${key}EndingRate`]: '4' } : undefined),
           [`${key}InitialPayment`]: '3',
           [`${key}MonthlyRate`]: '2',
           [`${key}Runtime`]: '6',
@@ -102,6 +106,7 @@ describe('Compare page', () => {
         pathname: '/compare',
         query,
       });
+
       expect(
         screen.getByText(
           createMatchRegexSeparatedByTags(

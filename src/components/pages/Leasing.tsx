@@ -151,23 +151,6 @@ export const Leasing = ({ onBack, onNext }: LeasingProps) => {
               {errors.leasInitialPayment && errors.leasInitialPayment.message}
             </FormErrorMessage>
           </FormControl>
-          <FormControl isInvalid={Boolean(errors.leasEndingRate)}>
-            <FormLabel htmlFor="leasEndingRate" id="leasEndingRateLabel">
-              {t('endingRate')}
-            </FormLabel>
-            <NumberInput id="leasEndingRate">
-              <NumberInputField
-                {...register('leasEndingRate', {
-                  required: tC('errors.emptyString'),
-                })}
-                border="1px solid"
-                borderColor="gray.200"
-              />
-            </NumberInput>
-            <FormErrorMessage>
-              {errors.leasEndingRate && errors.leasEndingRate.message}
-            </FormErrorMessage>
-          </FormControl>
           <HStack spacing={4} justify="end" alignSelf="stretch">
             <Button variant="ghost" colorScheme="brand" onClick={onBack}>
               {tC('back')}
